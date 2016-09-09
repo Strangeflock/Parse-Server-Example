@@ -9,20 +9,32 @@ var ParseDashboard = require('parse-dashboard');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+// Express app initialization.
 var app = express();
 
 // parse serve setup
 var api = new ParseServer({
-  databaseURI: 'mongodb://user:password@xxxx.mlab.com:xxx/database', // Connection string for your MongoDB database
+  // Connection string for your MongoDB database
+  databaseURI: 'mongodb://user:password@xxxx.mlab.com:xxx/database',
+  // The directory for your "Parse Cloud Code"
   cloud: __dirname + '/cloud/main.js',
+  // Application ID you have to create yourself.
   appId: 'APPLICATION_ID',
-  masterKey: 'MASTER_KEY', // Keep this key secret!
+  // Master key you have to create yourself.
+  masterKey: 'MASTER_KEY',
   fileKey: 'optionalFileKey',
-  serverURL: 'https://yourdomain.com/parse', // Don't forget to change to https if needed
+  // The URL of the server.
+  serverURL: 'https://yourdomain.com/parse',
+  // The name of the app you're working on.
   appName: "Vorto",
+  // The URL for the public facing server.
   publicServerURL: 'https://yourdomain.com/parse',
+  // Default Email adapter at this time is Mailgun. You will 
+  // have to create your own Mailgun account, configure it with the Linode server
+  // and then use it within this file.
   emailAdapter: {
-    module: 'parse-server-simple-mailgun-adapter',
+
+    module: 'parse-server-simple-mailgun-adapter', // For now, Mailgun is the default email adapter.
     options: {
       // The address that your emails come from
       fromAddress: 'youremailaddress@vyourdomain.com',
@@ -35,6 +47,7 @@ var api = new ParseServer({
 });
 
 // Parse Dashboard setup. We will host Parse Server and Parse Dashboard on one Linux Server
+// Below is a
 var dashboard = new ParseDashboard({
 "apps": [
     {
